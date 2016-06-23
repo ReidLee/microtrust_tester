@@ -1,1 +1,6 @@
 out/
+codes/file_list
+codes/manifest.mf
+codes/runjar.sh
+codes/target.jar
+codes/test.jar

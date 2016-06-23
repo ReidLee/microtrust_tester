@@ -19,7 +19,7 @@ build:
 	@find ./ -name *.java | tee $(FILE_LIST_NAME)
 	@javac -classpath  $(JARS) -sourcepath $(SOURCEPATH) @$(SOURCELIST) -d $(OUTPUT_PATH)
 	@jar cvfm $(JAR_TARGET)  $(MANIFEST)  -C $(OUTPUT_PATH)/ .
-	@bin/dx --dex --output=$(ANDROID_JAR_TARGET) $(JAR_TARGET)
+	@$(BIN_PATH)/dx --dex --output=$(ANDROID_JAR_TARGET) $(JAR_TARGET)
 	@echo "#!/system/bin/bash\n \
 export CLASSPATH=$(INSTALL_PATH)$(ANDROID_JAR_TARGET)\n \
 app_process $(INSTALL_PATH) $(MAIN_CLASS)\n" > $(RUN_SHELL_PATH)
@@ -51,6 +51,11 @@ install:
 	@adb remount
 	@adb push $(ANDROID_JAR_TARGET) $(INSTALL_PATH)
 	@adb push $(RUN_SHELL_PATH) $(INSTALL_PATH)
+
+
+
+release:
+	
 
 
 all:clean build install run
